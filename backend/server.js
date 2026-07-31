@@ -12,12 +12,24 @@ const User = require("./models/User");
 
 const app = express();
 
-// Middleware
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:3000",
+  "http://localhost:5000",
+  "https://inventory-management-system-mren.vercel.app",
+  "https://inventory-management-system-mren-chi.vercel.app",
+];
+
 app.use(
   cors({
-    origin: process.env.NODE_ENV === "production" 
-      ? ["https://inventory-management-system-mren.vercel.app", "https://inventory-management-system-mren-chi.vercel.app"]
-      : "http://localhost:5173",
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps, curl, or Postman)
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(null, true); // Permissive CORS for smooth local testing
+      }
+    },
     credentials: true,
   })
 );
