@@ -19,7 +19,7 @@ function ProductList() {
   const fetchProducts = async () => {
     try {
       const res = await axios.get(
-        `${API_URL}/api/products`
+        `${import.meta.env.VITE_API_URL}/api/products`
       );
 
       const sortedProducts = res.data.sort(
@@ -41,7 +41,7 @@ function ProductList() {
 
     try {
       await axios.delete(
-        `${API_URL}/api/products/${id}`
+        `${import.meta.env.VITE_API_URL}/api/products/${id}`
       );
 
       setProducts(

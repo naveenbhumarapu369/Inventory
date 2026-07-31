@@ -32,7 +32,7 @@ function Changepass() {
 
     try {
       await axios.post(
-        `${API_URL}/api/changepassword/${user.id}`,
+        `${import.meta.env.VITE_API_URL}/api/changepassword/${user.id}`,
         {
           oldPassword,
           newPassword,

@@ -26,7 +26,7 @@ function AdminPanel() {
   const fetchProducts = async () => {
     try {
       const res = await axios.get(
-        `${API_URL}/api/products`
+        `${import.meta.env.VITE_API_URL}/api/products`
       );
 
       setProducts(res.data);
@@ -48,14 +48,14 @@ function AdminPanel() {
     try {
       if (editId) {
         await axios.put(
-          `${API_URL}/api/products/${editId}`,
+          `${import.meta.env.VITE_API_URL}/api/products/${editId}`,
           product
         );
 
         alert("Product updated successfully");
       } else {
         await axios.post(
-          `${API_URL}/api/products`,
+          `${import.meta.env.VITE_API_URL}/api/products`,
           product
         );
 
@@ -101,7 +101,7 @@ function AdminPanel() {
 
     try {
       await axios.delete(
-        `${API_URL}/api/products/${id}`
+        `${import.meta.env.VITE_API_URL}/api/products/${id}`
       );
 
       alert("Product deleted");
