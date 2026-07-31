@@ -25,7 +25,7 @@ function Register() {
     };
 
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/register`,userData);
+      const response = await axios.post(`${API_URL}/api/register`,userData);
 
       alert(response.data.message);
 
