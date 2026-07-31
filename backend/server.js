@@ -12,24 +12,10 @@ const User = require("./models/User");
 
 const app = express();
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  "http://localhost:3000",
-  "http://localhost:5000",
-  "https://inventory-management-system-mren.vercel.app",
-  "https://inventory-management-system-mren-chi.vercel.app",
-];
-
+// Middleware
 app.use(
   cors({
-    origin: function (origin, callback) {
-      // Allow requests with no origin (like mobile apps, curl, or Postman)
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(null, true); // Permissive CORS for smooth local testing
-      }
-    },
+    origin: true,
     credentials: true,
   })
 );
@@ -40,8 +26,12 @@ app.use(express.json());
 app.use("/api/products", productRoutes);
 
 // MongoDB Connection
+if (!process.env.MONGO_URI) {
+  console.error("WARNING: MONGO_URI environment variable is missing!");
+}
+
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(process.env.MONGO_URI || "")
   .then(() => {
     console.log("MongoDB Cloud Connected Successfully");
   })
